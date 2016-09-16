@@ -22,7 +22,7 @@ export class LoginHeader {
   }
 
   ngOnInit() {
-    //this.getUser();
+    this.getUser();
   }
 
   logout() {

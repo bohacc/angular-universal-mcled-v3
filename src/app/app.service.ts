@@ -1,4 +1,5 @@
-var Constants = require('../backend/constants');
+//noinspection TypeScriptUnresolvedFunction
+let Constants = require('../backend/constants');
 
 import { isBrowser } from 'angular2-universal';
 
@@ -160,5 +161,9 @@ export class AppService {
 
   setLoginName(name: string) {
     this.store.loginName = name;
+  }
+
+  getRootPath() {
+    return isBrowser ? '' : Constants.ROOT_PATH;
   }
 }

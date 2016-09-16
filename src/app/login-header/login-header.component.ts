@@ -35,7 +35,7 @@ export class LoginHeader {
   }
 
   getUser() {
-    this.http.get('/user')
+    this.http.get(this.appService.getRootPath() + '/user')
       .subscribe(res => {
         let data = res.json();
         this.appService.setLogged((data.login ? data.login.length > 0 : false));

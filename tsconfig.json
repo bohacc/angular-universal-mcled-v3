@@ -10,7 +10,16 @@
     "sourceRoot": "src",
     "target": "es5",
     "lib": ["es6", "dom"],
-    "types": ["node"]
+    "types": [
+      "body-parser",
+      "compression",
+      "cookie-parser",
+      "express",
+      "express-serve-static-core",
+      "mime",
+      "node",
+      "serve-static"
+    ]
   },
   "exclude": [
     "node_modules"

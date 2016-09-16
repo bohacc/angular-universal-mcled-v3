@@ -11,6 +11,7 @@ import { enableProdMode } from '@angular/core';
 // Angular 2 Universal
 import { createEngine } from 'angular2-express-engine';
 
+import { MainModule  } from './main.node';
 import * as api from './backend/api';
 
 // enable prod for faster renders
@@ -23,11 +24,11 @@ const ROOT = path.join(path.resolve(__dirname, '..'));
 const env = process.env.NODE_ENV || process.env.APP_ENV, port = (parseInt(process.env.APP_PORT, 10) || 9002), ssl = (parseInt(process.env.APP_SSL, 10) || 0);
 
 // Express View
-import { main } from './main.node';
-app.engine('.html', createEngine({ main }));
+app.engine('.html', createEngine({ngModule: MainModule}));
 app.set('views', __dirname);
 app.set('view engine', 'html');
 
+//noinspection TypeScriptValidateTypes
 app.use(cookieParser('Angular 2 Universal'));
 app.use(bodyParser.json());
 
@@ -40,16 +41,25 @@ app.use('/examples', express.static(path.join(__dirname, '../examples'), {maxAge
 app.use('/files', express.static(path.join(__dirname, '../files'), {maxAge: 30}));
 app.use(express.static(path.join(ROOT, 'dist/client'), {index: false}));
 
-
+function ngApp(req, res) {
+  res.render('index', {
+    req,
+    res,
+    ngModule: MainModule,
+    preboot: false,
+    baseUrl: '/',
+    requestUrl: req.originalUrl,
+    originUrl: req.hostname
+  });
+}
 // Routes with html5pushstate
 // ensure routes match client-side-app
-app.get('/', (req, res) => res.render('index', {req, res}));
-//app.get('/about', (req, res) => res.render('index', {req, res}));
-//app.get('/about/*', (req, res) => res.render('index', {req, res}));
-//app.get('/home', (req, res) => res.render('index', {req, res}));
-//app.get('/home/*', (req, res) => res.render('index', {req, res}));
+/*app.get('/', ngApp);
+app.get('/about', ngApp);
+app.get('/about/!*', ngApp);
+app.get('/home', ngApp);
+app.get('/home/!*', ngApp);*/
 
-//app.get('/', ngApp);
 app.get('/web_get_img_data', api.emptyImage);
 app.get('/test', api.test);
 app.get('/logout', api.logout);
@@ -60,7 +70,9 @@ app.get('/sitemap', api.sitemap);
 app.get('/partners', api.partnersList);
 app.get('/user', api.user);
 
-app.get('/:code', (req, res) => res.render('index', {req, res}));
+app.get('/:code', ngApp);
+app.get('/', ngApp);
+
 app.get('/load-objects/redirect/:code', api.loadObjects);
 app.get('/redirect-navigations/page/:id', api.redirectNavigations);
 app.get('/redirect-navigations/product/:code', api.redirectNavigationsProduct);
@@ -78,6 +90,7 @@ app.get('/newsletter/login/:email', api.newsletterLogin);
 
 
 app.get('*', function(req, res) {
+  console.log('CTYRISTACTYRI');
   res.setHeader('Content-Type', 'application/json');
   var pojo = { status: 404, message: 'No Content' };
   var json = JSON.stringify(pojo, null, 2);

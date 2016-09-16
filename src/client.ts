@@ -8,11 +8,13 @@ import { platformUniversalDynamic } from 'angular2-universal';
 // enable prod for faster renders
 enableProdMode();
 
-import { main } from './main.browser';
+import { MainModule } from './main.browser';
+
+const platformRef = platformUniversalDynamic();
 
 // on document ready bootstrap Angular 2
 document.addEventListener('DOMContentLoaded', () => {
 
-  platformUniversalDynamic().bootstrapModule(main());
+  platformRef.bootstrapModule(MainModule);
 
 });

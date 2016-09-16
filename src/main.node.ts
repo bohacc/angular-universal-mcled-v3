@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+
 import { UniversalModule } from 'angular2-universal';
 
 import { App } from './app/app';
@@ -60,105 +62,98 @@ import {ListObj} from "./app/list-obj/list-obj.component";
 import {List3Obj} from "./app/list3-obj/list3-obj.component";
 import {List4Obj} from "./app/list4-obj/list4-obj.component";
 
-export function main(config) {
-  //noinspection TypeScriptUnresolvedVariable
-  let port = (parseInt(process.env.DIT_PORT, 10) || 9002);
 
-  @NgModule({
-    bootstrap: [ App ],
-    declarations: [
-      App,
-      Home,
-      HomeStatic,
-      Section,
-      MyFilterArray,
-      SectionObject,
-      HtmlOutlet3,
-      HtmlOutlet4,
-      PageHeader,
-      ShopCategories,
-      LoginHeader,
-      Test,
-      SlidesComponent,
-      Carousel,
-      SlidesObj,
-      LoginNewsletter,
-      BannerMcled,
-      DeliveryFree,
-      ProductsHomepage,
-      ArticlesHomepage,
-      Copyright,
-      Footer,
-      CarouselPartners,
-      Partners,
-      LoginPage,
-      RedirectNavigation,
-      ListItem,
-      List3Item,
-      List4Item,
-      SelectBox,
-      List,
-      Attachments,
-      CarouselVertical,
-      List2,
-      ListFilter,
-      ListFilterBasic,
-      ListFilterAdvanced,
-      ListFilterBasicCustom1,
-      ListFilterBasicCustom2,
-      ListFilterBasicCustom3,
-      ListFilterBasicCustom4,
-      ListFilterBasicCustom5,
-      ListFilterBasicCustom6,
-      ListFilterBasicCustom7,
-      ListFilterBasicCustom8,
-      ListFilterBasicCustom9,
-      Pagination,
-      SimilarProducts,
-      Record,
-      Configurator,
-      ShopCategoriesObj,
-      ShopCategoriesDevObj,
-      ShopCategoriesDev,
-      ListObj,
-      List3Obj,
-      List4Obj
-    ],
-    entryComponents: [
-      Test,
-      PageHeader,
-      SlidesObj,
-      Partners,
-      PageHeader,
-      LoginPage,
-      RedirectNavigation,
-      List,
-      List2,
-      Configurator,
-      Record,
-      ShopCategoriesObj,
-      ShopCategoriesDevObj,
-      ListObj,
-      List3Obj,
-      List4Obj
-    ],
-    imports: [
-      UniversalModule.withConfig({
-        document: config.document,
-        originUrl: 'http://localhost:' + port,
-        baseUrl: '/',
-        requestUrl: '/',
-        // preboot: false,
-        preboot: { appRoot: ['app'], uglify: true },
-      }),
-      FormsModule,
-      routing,
-    ],
-    providers: [
-      appRoutingProviders,
-    ]
-  })
-  class MainModule {}
+//noinspection TypeScriptUnresolvedVariable
+let port = (parseInt(process.env.DIT_PORT, 10) || 9002);
 
-  return MainModule
-};
+@NgModule({
+  bootstrap: [ App ],
+  declarations: [
+    App,
+    Home,
+    HomeStatic,
+    Section,
+    MyFilterArray,
+    SectionObject,
+    HtmlOutlet3,
+    HtmlOutlet4,
+    PageHeader,
+    ShopCategories,
+    LoginHeader,
+    Test,
+    SlidesComponent,
+    Carousel,
+    SlidesObj,
+    LoginNewsletter,
+    BannerMcled,
+    DeliveryFree,
+    ProductsHomepage,
+    ArticlesHomepage,
+    Copyright,
+    Footer,
+    CarouselPartners,
+    Partners,
+    LoginPage,
+    RedirectNavigation,
+    ListItem,
+    List3Item,
+    List4Item,
+    SelectBox,
+    List,
+    Attachments,
+    CarouselVertical,
+    List2,
+    ListFilter,
+    ListFilterBasic,
+    ListFilterAdvanced,
+    ListFilterBasicCustom1,
+    ListFilterBasicCustom2,
+    ListFilterBasicCustom3,
+    ListFilterBasicCustom4,
+    ListFilterBasicCustom5,
+    ListFilterBasicCustom6,
+    ListFilterBasicCustom7,
+    ListFilterBasicCustom8,
+    ListFilterBasicCustom9,
+    Pagination,
+    SimilarProducts,
+    Record,
+    Configurator,
+    ShopCategoriesObj,
+    ShopCategoriesDevObj,
+    ShopCategoriesDev,
+    ListObj,
+    List3Obj,
+    List4Obj
+  ],
+  entryComponents: [
+    Test,
+    PageHeader,
+    SlidesObj,
+    Partners,
+    PageHeader,
+    LoginPage,
+    RedirectNavigation,
+    List,
+    List2,
+    Configurator,
+    Record,
+    ShopCategoriesObj,
+    ShopCategoriesDevObj,
+    ListObj,
+    List3Obj,
+    List4Obj
+  ],
+  imports: [
+    UniversalModule, // NodeModule, NodeHttpModule, and NodeJsonpModule are included
+    FormsModule,
+    /*RouterModule.forRoot([
+      { path: '', component: HomeStatic, pathMatch: 'full' }
+    ]),*/
+    routing,
+  ],
+  providers: [
+    appRoutingProviders,
+  ]
+})
+export class MainModule {}

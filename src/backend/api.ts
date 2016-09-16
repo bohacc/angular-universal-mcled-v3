@@ -1,6 +1,10 @@
+//noinspection TypeScriptUnresolvedFunction
 var oracle = require('oracledb');
+//noinspection TypeScriptUnresolvedFunction
 var fs = require('fs');
+//noinspection TypeScriptUnresolvedFunction
 var Promise = require('promise');
+//noinspection TypeScriptUnresolvedFunction
 var Constants = require('./constants');
 import { Oracledb } from './api_oracle';
 import { Tools } from './tools';
@@ -57,6 +61,7 @@ export function loadObjects (req, res) {
 }
 
 export function emptyImage (req, res) {
+  //noinspection TypeScriptUnresolvedVariable
   res.sendFile((process.env.APP_PORT ? '/srv/nodejs/mcled_website_v3' : '') + '/images/noimage/mcled_noimage_B.png', {root: (process.env.APP_PORT ? '' : __dirname + '/../../')});
   //console.log('EMPTY IMAGE');
   //res.sendFile(emptyImg);
@@ -1614,7 +1619,7 @@ export function partnersList (req, res) {
 
     Oracledb.select(sql, [], req, null, null).then(
       function (result) {
-        rows = Tools.getMultiResult(result);
+        rows = Tools.getMultiResult(result) || [];
         res.json(rows);
       },
       function (result) {

@@ -16,6 +16,7 @@ import {ShopCategoriesObj} from "../shop-categories-obj/shop-categories-obj.comp
 import {ListObj} from "../list-obj/list-obj.component";
 import {List3Obj} from "../list3-obj/list3-obj.component";
 import {List4Obj} from "../list4-obj/list4-obj.component";
+import {AppService} from "../app.service";
 
 @Component({
   selector: 'section-object',
@@ -36,8 +37,10 @@ export class SectionObject {
   self = this;
   obj: any = Test;
   isComponentType: number = 0;
+  appService: AppService;
 
   constructor(private http: Http) {
+    this.appService = AppService.getInstance();
   }
 
   ngOnInit() {
@@ -58,7 +61,7 @@ export class SectionObject {
       && this.objectID !== '6373'
       && this.objectID !== '6350'
     ){
-      this.http.get('/templates/' + this.src).subscribe((res) => {
+      this.http.get(this.appService.getRootPath() + '/templates/' + this.src).subscribe((res) => {
         this.html = res.text();
         this.isComponentType = 1;
       });

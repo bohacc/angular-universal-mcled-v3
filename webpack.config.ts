@@ -1,12 +1,8 @@
-//noinspection TypeScriptUnresolvedFunction
 var webpack = require('webpack');
-//noinspection TypeScriptUnresolvedFunction
 var path = require('path');
-//noinspection TypeScriptUnresolvedFunction
 var resolveNgRoute = require('@angularclass/resolve-angular-routes');
 
 
-//noinspection TypeScriptUnresolvedVariable
 var commonConfig = {
   resolve: {
     extensions: ['', '.ts', '.js', '.json'],
@@ -94,7 +90,6 @@ var serverConfig = {
 
 
 // Default config
-//noinspection TypeScriptUnresolvedVariable
 var defaultConfig = {
   context: __dirname,
   resolve: {
@@ -108,9 +103,7 @@ var defaultConfig = {
 
 
 
-//noinspection TypeScriptUnresolvedFunction
 var webpackMerge = require('webpack-merge');
-//noinspection TypeScriptUnresolvedVariable
 module.exports = [
   // Client
   webpackMerge({}, defaultConfig, commonConfig, clientConfig),
@@ -129,6 +122,5 @@ function checkNodeImport(context, request, cb) {
 
 function root(args) {
   args = Array.prototype.slice.call(arguments, 0);
-  //noinspection TypeScriptUnresolvedVariable
   return path.join.apply(path, [__dirname].concat(args));
 }

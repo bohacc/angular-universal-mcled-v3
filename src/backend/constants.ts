@@ -1,5 +1,6 @@
 export var SESSIONID_CODE = 'sessionid';
 export var AUTH_TOKEN_CODE = 'auth_token';
+export var ROOT_PATH = 'http://localhost:9002';
 export var commaParams = '@';
 export var actionId = 2664;
 export var newsId = 2663;

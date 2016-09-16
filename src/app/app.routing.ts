@@ -5,8 +5,9 @@ import { Home } from './home/home.component';
 import { HomeStatic } from "./home-static/home-static.component";
 
 const appRoutes: Routes = [
+  { path: '', redirectTo: 'homepage', pathMatch: 'full' },
   {
-    path: '',
+    path: 'homepage',
     component: HomeStatic,
     data: {
       title: 'McLed'

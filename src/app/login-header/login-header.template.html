@@ -1,0 +1,6 @@
+<ul>
+  <li><a *ngIf="appStore.isLogged" [routerLink]="['/registrace']" class="user fa_b_user" title="{{appStore.loginName}}"><span>{{appStore.loginName}}</span></a></li>
+  <li><a *ngIf="!appStore.isLogged" [routerLink]="['/login']" class="fa_b_user" title="Uživatel">Přihlásit se</a></li>
+  <li><a *ngIf="appStore.isLogged" href="javascript:void(0);" class="logout fa_b_times" (click)="logout()">Odhlásit</a></li>
+  <li><a [routerLink]="['/']" class="lang cz">Česky</a></li>
+</ul>

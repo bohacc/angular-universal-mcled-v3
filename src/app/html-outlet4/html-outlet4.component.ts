@@ -40,7 +40,7 @@ export class HtmlOutlet4 {
       ngOnInit() {
         if (isBrowser && html.indexOf('slides') > -1) {
           $(require('../../../tools/js/jquery/slideshow/jquery.slides.js'));
-          $(this._elRef.nativeElement).slidesjs({
+          $(this._elRef.nativeElement).find('.slides').slidesjs({
             width: "100%",
             height: "100%",
             play: {

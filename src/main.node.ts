@@ -61,6 +61,10 @@ import {ShopCategoriesDev} from "./app/shop-categories-dev/shop-categories-dev.c
 import {ListObj} from "./app/list-obj/list-obj.component";
 import {List3Obj} from "./app/list3-obj/list3-obj.component";
 import {List4Obj} from "./app/list4-obj/list4-obj.component";
+import {HtmlOutlet} from "./app/html-outlet/html-outlet.component";
+import {ScrollBarWidth} from "./app/scrollbar-width/scrollbar-width";
+import {AppWidth} from "./app/app-width/app-width.component";
+import {MenuSetActive} from "./app/menu-set-active/menu-set-active.component";
 
 
 //noinspection TypeScriptUnresolvedVariable
@@ -124,7 +128,11 @@ let port = (parseInt(process.env.DIT_PORT, 10) || 9002);
     ShopCategoriesDev,
     ListObj,
     List3Obj,
-    List4Obj
+    List4Obj,
+    ScrollBarWidth,
+    AppWidth,
+    MenuSetActive
+    //HtmlOutlet
   ],
   entryComponents: [
     Test,
@@ -142,7 +150,8 @@ let port = (parseInt(process.env.DIT_PORT, 10) || 9002);
     ShopCategoriesDevObj,
     ListObj,
     List3Obj,
-    List4Obj
+    List4Obj,
+    SlidesComponent
   ],
   imports: [
     UniversalModule, // NodeModule, NodeHttpModule, and NodeJsonpModule are included

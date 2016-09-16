@@ -1,13 +1,13 @@
 //our root app component
-import { NgModule, Component, Compiler, ViewContainerRef, ViewChild, Input, ComponentRef, ComponentFactory, ComponentFactoryResolver} from '@angular/core'
+import { NgModule, Component, Compiler, ViewContainerRef, ViewChild, Input, ComponentRef, ComponentFactory, ComponentFactoryResolver, ElementRef} from '@angular/core'
 import { FormsModule } from '@angular/forms';
 
-import { UniversalModule } from 'angular2-universal';
+import {UniversalModule, isBrowser} from 'angular2-universal';
 
-import { PageHeader } from '../page-header/page-header.component';
-import { ShopCategories } from '../shop-categories/shop-categories.component';
-import { LoginHeader } from '../login-header/login-header.component';
 import { routing, appRoutingProviders } from '../app.routing';
+import {SlidesComponent} from "../slides/slides.component";
+
+declare var $: any;
 
 // Helper component to add dynamic components
 @Component({
@@ -35,11 +35,37 @@ export class HtmlOutlet4 {
 
     let html = this.html;
     @Component({template: html})
-    class TemplateComponent {}
+    class TemplateComponent {
+      constructor(private _elRef: ElementRef) {}
+      ngOnInit() {
+        if (isBrowser && html.indexOf('slides') > -1) {
+          $(require('../../../tools/js/jquery/slideshow/jquery.slides.js'));
+          $(this._elRef.nativeElement).slidesjs({
+            width: "100%",
+            height: "100%",
+            play: {
+              active: true,
+              effect: "fade",
+              interval: 7000,
+              auto: true,
+              swap: false,
+              pauseOnHover: false,
+              restartDelay: 7000
+            },
+
+            menu_titles: {
+              active: true
+            }
+          });
+        }
+      }
+    }
     @NgModule({
       declarations: [
         TemplateComponent,
+        //SlidesComponent
       ],
+      //entryComponents: [SlidesComponent],
       imports: [
         UniversalModule,
         FormsModule,

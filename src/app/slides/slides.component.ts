@@ -1,11 +1,12 @@
 import { isBrowser } from 'angular2-universal';
 
-import { Directive, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 
 declare var $: any;
 
-@Directive({
+@Component({
   selector: '[slides]',
+  template: '<ng-content></ng-content>'
 })
 export class SlidesComponent implements OnInit {
   constructor(private _elRef: ElementRef) {}

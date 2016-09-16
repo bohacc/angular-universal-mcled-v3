@@ -1,9 +1,9 @@
-<!--<div app-width style="width: 100%; display: none">&nbsp;</div>
+<div app-width style="width: 100%; display: none">&nbsp;</div>
 <div style="visibility: hidden; width: 100px; overflow: scroll; position: absolute; z-index: -1">
   <div scroll-bar-width style="width: 100%;"></div>
-</div>-->
+</div>
 <div [ngClass]="{'full_width': bodyClass}">
-  <div id="item_eshop_body_loc"> <!--(window:resize)="onResize($event)"-->
+  <div id="item_eshop_body_loc" (window:resize)="onResize($event)">
 
     <!--TOP HEADER 91-->
     <section pos="91" [objects]="objects"></section>

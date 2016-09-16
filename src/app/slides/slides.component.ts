@@ -11,7 +11,7 @@ export class SlidesComponent implements OnInit {
   constructor(private _elRef: ElementRef) {}
 
   ngOnInit() {
-    if (1==1) {
+    if (isBrowser) {
       //console.log('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX');
       //carousel($);
       //$(this._elRef.nativeElement).hide();

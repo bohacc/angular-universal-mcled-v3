@@ -18,6 +18,48 @@ import { LoginHeader } from './app/login-header/login-header.component';
 import { SlidesComponent } from './app/slides/slides.component';
 import { Carousel } from './app/carousel/carousel.component';
 import { SlidesObj } from './app/slides-obj/slides-obj.component';
+import {HomeStatic} from "./app/home-static/home-static.component";
+import {LoginNewsletter} from "./app/login-newsletter/login-newsletter.component";
+import {BannerMcled} from "./app/banner-mcled/banner-mcled.component";
+import {DeliveryFree} from "./app/delivery-free/delivery-free.component";
+import {ProductsHomepage} from "./app/products-homepage/products-homepage.component";
+import {ArticlesHomepage} from "./app/articles-homepage/articles-homepage.component";
+import {Copyright} from "./app/copyright/copyright.component";
+import {Footer} from "./app/footer/footer.component";
+import {CarouselPartners} from "./app/carousel-partners/carousel-partners.component";
+import {Partners} from "./app/partners/partners.component";
+import {LoginPage} from "./app/login-page/login-page.component";
+import {RedirectNavigation} from "./app/redirect-navigation/redirect-navigation.component";
+import {ListItem} from "./app/list-item/list-item.component";
+import {List3Item} from "./app/list3-item/list3-item.component";
+import {List4Item} from "./app/list4-item/list4-item.component";
+import {SelectBox} from "./app/select-box/select-box.component";
+import {List} from "./app/list/list.component";
+import {Attachments} from "./app/attachments/attachments.component";
+import {CarouselVertical} from "./app/carousel-vertical/carousel-vertical.component";
+import {List2} from "./app/list2/list2.component";
+import {ListFilter} from "./app/list-filter/list-filter.component";
+import {ListFilterBasic} from "./app/list-filter-basic/list-filter-basic.component";
+import {ListFilterAdvanced} from "./app/list-filter-advanced/list-filter-advanced.component";
+import {ListFilterBasicCustom1} from "./app/list-filter-basic-custom-1/list-filter-basic-custom-1.component";
+import {ListFilterBasicCustom2} from "./app/list-filter-basic-custom-2/list-filter-basic-custom-2.component";
+import {ListFilterBasicCustom3} from "./app/list-filter-basic-custom-3/list-filter-basic-custom-3.component";
+import {ListFilterBasicCustom4} from "./app/list-filter-basic-custom-4/list-filter-basic-custom-4.component";
+import {ListFilterBasicCustom5} from "./app/list-filter-basic-custom-5/list-filter-basic-custom-5.component";
+import {ListFilterBasicCustom6} from "./app/list-filter-basic-custom-6/list-filter-basic-custom-6.component";
+import {ListFilterBasicCustom7} from "./app/list-filter-basic-custom-7/list-filter-basic-custom-7.component";
+import {ListFilterBasicCustom8} from "./app/list-filter-basic-custom-8/list-filter-basic-custom-8.component";
+import {ListFilterBasicCustom9} from "./app/list-filter-basic-custom-9/list-filter-basic-custom-9.component";
+import {Pagination} from "./app/pagination/pagination.component";
+import {SimilarProducts} from "./app/similar-products/similar-products.component";
+import {Record} from "./app/record/record.component";
+import {Configurator} from "./app/configurator/configurator.component";
+import {ShopCategoriesObj} from "./app/shop-categories-obj/shop-categories-obj.component";
+import {ShopCategoriesDevObj} from "./app/shop-categories-dev-obj/shop-categories-dev-obj.component";
+import {ShopCategoriesDev} from "./app/shop-categories-dev/shop-categories-dev.component";
+import {ListObj} from "./app/list-obj/list-obj.component";
+import {List3Obj} from "./app/list3-obj/list3-obj.component";
+import {List4Obj} from "./app/list4-obj/list4-obj.component";
 
 export function main() {
   @NgModule({
@@ -25,6 +67,7 @@ export function main() {
     declarations: [
       App,
       Home,
+      HomeStatic,
       Section,
       MyFilterArray,
       SectionObject,
@@ -36,13 +79,66 @@ export function main() {
       Test,
       SlidesComponent,
       Carousel,
-      SlidesObj
+      SlidesObj,
+      LoginNewsletter,
+      BannerMcled,
+      DeliveryFree,
+      ProductsHomepage,
+      ArticlesHomepage,
+      Copyright,
+      Footer,
+      CarouselPartners,
+      Partners,
+      LoginPage,
+      RedirectNavigation,
+      ListItem,
+      List3Item,
+      List4Item,
+      SelectBox,
+      List,
+      Attachments,
+      CarouselVertical,
+      List2,
+      ListFilter,
+      ListFilterBasic,
+      ListFilterAdvanced,
+      ListFilterBasicCustom1,
+      ListFilterBasicCustom2,
+      ListFilterBasicCustom3,
+      ListFilterBasicCustom4,
+      ListFilterBasicCustom5,
+      ListFilterBasicCustom6,
+      ListFilterBasicCustom7,
+      ListFilterBasicCustom8,
+      ListFilterBasicCustom9,
+      Pagination,
+      SimilarProducts,
+      Record,
+      Configurator,
+      ShopCategoriesObj,
+      ShopCategoriesDevObj,
+      ShopCategoriesDev,
+      ListObj,
+      List3Obj,
+      List4Obj
     ],
     entryComponents: [
       Test,
       PageHeader,
-      ShopCategories,
-      SlidesObj
+      SlidesObj,
+      Partners,
+      PageHeader,
+      LoginPage,
+      RedirectNavigation,
+      List,
+      List2,
+      Configurator,
+      Record,
+      ShopCategoriesObj,
+      ShopCategoriesDevObj,
+      ListObj,
+      List3Obj,
+      List4Obj
     ],
     imports: [
       UniversalModule,

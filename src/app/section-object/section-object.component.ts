@@ -5,6 +5,17 @@ import { Test } from '../test/test.component';
 import { PageHeader } from '../page-header/page-header.component';
 import { ShopCategories } from "../shop-categories/shop-categories.component";
 import { SlidesObj } from "../slides-obj/slides-obj.component";
+import {Partners} from "../partners/partners.component";
+import {LoginPage} from "../login-page/login-page.component";
+import {RedirectNavigation} from "../redirect-navigation/redirect-navigation.component";
+import {Configurator} from "../configurator/configurator.component";
+import {Record} from "../record/record.component";
+import {List2} from "../list2/list2.component";
+import {ShopCategoriesDevObj} from "../shop-categories-dev-obj/shop-categories-dev-obj.component";
+import {ShopCategoriesObj} from "../shop-categories-obj/shop-categories-obj.component";
+import {ListObj} from "../list-obj/list-obj.component";
+import {List3Obj} from "../list3-obj/list3-obj.component";
+import {List4Obj} from "../list4-obj/list4-obj.component";
 
 @Component({
   selector: 'section-object',
@@ -21,7 +32,7 @@ export class SectionObject {
   private objectType: number;
   @Input('pos')
   private pos: number;
-  html = 'loading...';
+  html = '';
   self = this;
   obj: any = Test;
   isComponentType: number = 0;
@@ -53,41 +64,40 @@ export class SectionObject {
       });
     } else if (this.pos == 3 && (this.objectID === 'ZAZNAM_PRODUKTU_NG2' || this.objectID === '6371')) {
       this.isComponentType = 2;
-      this.html = '<record></record>';
+      this.obj = Record;
     } else if (this.pos == 3 && (this.objectID === 'KONFIGURATOR_NG2' || this.objectID === '6376')) {
       this.isComponentType = 2;
-      this.html = '<configurator></configurator>';
+      this.obj = Configurator;
     } else if (this.pos == 3 && (this.objectID === 'SEZNAM2_NG' || this.objectID === '6531')) {
       this.isComponentType = 2;
-      this.html = '<list2></list2>';
+      this.obj = List2;
     } else if (this.pos == 3 && (this.objectID === 'SEZNAM_NG2' || this.objectID === '6370')) {
       this.isComponentType = 2;
-      this.html = '<list class="site_subpage_content n-space-bottom" [asListType]="1"></list>';
+      this.obj = ListObj;
     } else if (this.pos == 3 && (this.objectID === 'REDIRECT_NAVIGATION_NG2' || this.objectID === '6363')) {
       this.isComponentType = 2;
-      this.html = '<redirect-navigation></redirect-navigation>';
+      this.obj = RedirectNavigation;
     } else if (this.pos == 1 && (this.objectID === 'SIDE_MENU_NG2' || this.objectID === '6344')) {
       this.isComponentType = 2;
-      //this.html = '<shop-categories [typeShowing]="\'showCats\'"></shop-categories>';
-      this.obj = ShopCategories;
+      this.obj = ShopCategoriesObj;
     } else if (this.pos == 3 && (this.objectID === 'SEZNAM3_NG2' || this.objectID === '6577')) {
       this.isComponentType = 2;
-      this.html = '<list [asListType]="3"></list>';
+      this.obj = List3Obj;
     } else if (this.pos == 3 && (this.objectID === 'SEZNAM4_NG2' || this.objectID === '6622')) {
       this.isComponentType = 2;
-      this.html = '<list [asListType]="4"></list>';
+      this.obj = List4Obj;
     } else if (this.pos == 1 && (this.objectID === 'SIDE_MENU_DEV_NG2' || this.objectID === '6663')) {
       this.isComponentType = 2;
-      //this.html = '<shop-categories-dev [typeShowing]="\'showCats\'"></shop-categories-dev>';
+      this.obj = ShopCategoriesDevObj;
     } else if (this.pos == 7 && (this.objectID === 'PARTNERS_NG2' || this.objectID === '6347')) {
-      this.html = '<partners></partners>';
+      this.isComponentType = 2;
+      this.obj = Partners;
     } else if (this.pos == 6 && (this.objectID === 'PAGE_HEADER_NG2' || this.objectID === '6343')) {
       this.isComponentType = 2;
-      //this.html = '<page-header></page-header>';
       this.obj = PageHeader;
     } else if (this.pos == 3 && (this.objectID === 'LOGIN_PAGE_NG2' || this.objectID === '6373')) {
       this.isComponentType = 2;
-      this.html = '<login-page></login-page>';
+      this.obj = LoginPage;
     } else if (this.pos == 3 && (this.objectID === 'SLIDES_NG2' || this.objectID === '6350')) {
       this.isComponentType = 2;
       this.obj = SlidesObj;

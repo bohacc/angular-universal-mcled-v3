@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-//import {ROUTER_DIRECTIVES} from '@angular/router';
 
 //import { CatsOnMobileTablet } from '../cats-on-mobile-tablet/cats-on-mobile-tablet';
 //import { MenuToggle } from '../menu-toggle/menu-toggle';
@@ -10,12 +9,6 @@ import { SideMenu } from '../shared/side-menu.service';
 @Component({
   selector: 'shop-categories',
   templateUrl: '../../../templates/a_6344.html',
-  /*directives: [
-      ROUTER_DIRECTIVES,
-      CatsOnMobileTablet,
-      MenuToggle,
-      MenuSetActive
-    ]*/
 })
 
 export class ShopCategories implements OnInit, SideMenu{

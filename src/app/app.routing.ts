@@ -2,13 +2,14 @@ import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { Home } from './home/home.component';
+import { HomeStatic } from "./home-static/home-static.component";
 
 const appRoutes: Routes = [
   {
     path: '',
-    component: Home,
+    component: HomeStatic,
     data: {
-      title: 'Heroes List'
+      title: 'McLed'
     }
   },
   { path: ':code', component: Home },

@@ -29,7 +29,7 @@ export class SimilarProducts {
   getData() {
     if (this.id && !isNaN(this.id)) {
       let self = this;
-      this.http.get(this.appService.getRootPath() + '/product/' + this.id + '/similar?count=' + this.count)
+      this.http.get(this.appService.getRootPath() + '/products/' + this.id + '/similar?count=' + this.count)
         .subscribe(res => {
           let data = res.json();
           this.products = data;

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Http } from '@angular/http';
 
-import Constants = require('../constants/constants.service');
+import Constants = require('../../backend/constants');
 import { AppService } from '../app.service';
 
 @Component({
@@ -39,7 +39,7 @@ export class LoginHeader {
       .subscribe(res => {
         let data = res.json();
         this.appService.setLogged((data.login ? data.login.length > 0 : false));
-        this.appService.setLoginName(data.login);
+        this.appService.setLoginName(decodeURIComponent(data.login));
       });
   }
 }

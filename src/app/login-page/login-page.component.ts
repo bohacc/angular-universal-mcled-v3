@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Http } from '@angular/http';
 
-import Constants = require('../constants/constants.service');
+import Constants = require('../../backend/constants');
 import { AppService } from '../app.service';
 
 @Component({

@@ -17,6 +17,7 @@ import {ListObj} from "../list-obj/list-obj.component";
 import {List3Obj} from "../list3-obj/list3-obj.component";
 import {List4Obj} from "../list4-obj/list4-obj.component";
 import {AppService} from "../app.service";
+import {CartPage} from "../cart-page/cart-page.component";
 
 @Component({
   selector: 'section-object',
@@ -60,6 +61,7 @@ export class SectionObject {
       && this.objectID !== '6343'
       && this.objectID !== '6373'
       && this.objectID !== '6350'
+      && this.objectID !== '6379'
     ){
       this.http.get(this.appService.getRootPath() + '/templates/' + this.src).subscribe((res) => {
         this.html = res.text();
@@ -104,6 +106,9 @@ export class SectionObject {
     } else if (this.pos == 3 && (this.objectID === 'SLIDES_NG2' || this.objectID === '6350')) {
       this.isComponentType = 2;
       this.obj = SlidesObj;
+    } else if (this.pos == 3 && (this.objectID === 'CART_PAGE_NG2' || this.objectID === '6379')) {
+      this.isComponentType = 2;
+      this.obj = CartPage;
     }
   }
 }

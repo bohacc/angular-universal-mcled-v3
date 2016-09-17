@@ -6,6 +6,7 @@ var fs = require('fs');
 var Promise = require('promise');
 //noinspection TypeScriptUnresolvedFunction
 var Constants = require('./constants');
+
 import { Oracledb } from './api_oracle';
 import { Tools } from './tools';
 
@@ -1264,38 +1265,6 @@ export function attachment (req, res) {
   }
 }
 
-export function test (req, res) {
-  let sql, vals, obj, sqlAtt;
-
-  try {
-
-    sql =
-      'begin web_udaje_eshop_uzivatele_json(:strings); end;';
-
-    vals = {strings: {type: oracle.STRING, dir: oracle.BIND_IN, val: ['asessionid:123456789', 'aLoginName:bohac@notia.cz', 'aSaveContent:1']}};
-
-    Oracledb.executeSQL(sql, vals, req, null, {commit: true}).then(
-      function (result) {
-        vals = {sessionid: 123456789};
-        return Oracledb.select('SELECT s1 FROM sessionid_temp WHERE sessionid = :sessionid AND kod = \'WEB_UDAJE_ESHOP_UZIVATELE_JSON\'', vals, req, null, null);
-      }
-    ).then(
-      function (result) {
-        console.log(result);
-        res.send(Tools.getSingleResult(result));
-      },
-      function (result) {
-        console.log(result);
-        res.send('');
-      }
-    );
-  } catch (e) {
-    console.log(e);
-    res.send('');
-  }
-
-}
-
 export function xmlExportSeznam (req, res) {
   let sql, rows, temp, obj = '', i, l;
 
@@ -1635,20 +1604,49 @@ export function partnersList (req, res) {
 }
 
 export function newsletterLogin (req, res) {
-  let sql, vals;
+  let sql, vals, sessionid, sqlProps;
 
-  if (req.params.email && Tools.validateEmail(req.params.email)) {
+  sessionid = Tools.getSessionId(req);
+  if (!sessionid) {
+    res.json({});
+    return;
+  }
+
+  if (req.body.email && Tools.validateEmail(req.body.email)) {
+    res.json({});
+    return;
+  }
     try {
 
       sql =
         'begin web_newsletter_insert_json(:strings); end;';
-//TODO: parameter asessionid
-      vals = {strings: {type: oracle.STRING, dir: oracle.BIND_IN, val: ['asessionid:123456789', 'aSaveContent:1', 'aEmail:' + req.params.email]}};
+
+      sqlProps =
+        'SELECT ' +
+        '  s1 as "result" ' +
+        'FROM ' +
+        '  sessionid_temp ' +
+        'WHERE ' +
+        '  sessionid = decrypt_cookie(:sessionid) ' +
+        '  AND kod = \'WEB_NEWSLETTER_INSERT_JSON\'';
+
+      vals = {
+        strings: {
+          type: oracle.STRING,
+          dir: oracle.BIND_IN,
+          val: [
+            'asessionid:' + sessionid,
+            'aSaveContent:1',
+            'aExtCookies:1',
+            'aEmail:' + req.body.email
+          ]
+        }
+      };
 
       Oracledb.executeSQL(sql, vals, req, null, {commit: true}).then(
         function (result) {
-          vals = {sessionid: 123456789};
-          return Oracledb.select('SELECT s1 as "result" FROM sessionid_temp WHERE sessionid = :sessionid AND kod = \'WEB_NEWSLETTER_INSERT_JSON\'', vals, req, null, null);
+          vals = {sessionid: sessionid};
+          return Oracledb.select(sqlProps, vals, req, null, null);
         }
       ).then(
         function (result) {
@@ -1663,7 +1661,6 @@ export function newsletterLogin (req, res) {
       console.log(e);
       res.send('');
     }
-  }
 }
 
 export function logout (req, res) {
@@ -1785,7 +1782,7 @@ export function createPartnerCookie (req, res, obj) {
 
     sqlInsert =
       'INSERT INTO WEB_USER_COOKIE (COOKIE, PARTNER, LOGIN, DATUM, AUTO_CONNECT_HASH, AUTH_TOKEN, WEBSITE) ' +
-      '  VALUES (:sessionid, :partner, :login, sysdate, null, :authToken, get_website);';
+      '  VALUES (decrypt_cookie(:sessionid), :partner, :login, sysdate, null, :authToken, get_website);';
 
     vals = {
       sessionid: Tools.getSessionId(req),
@@ -1821,9 +1818,13 @@ export function user (req, res) {
 
   try {
     sessionid = Tools.getSessionId(req);
+    if (!sessionid) {
+      res.json({});
+      return;
+    }
 
     sql =
-      'begin web_udaje_eshop_uzivatele_json(:strings); end;';
+      'begin e1_web_udaje_eshop_uziv_json(:strings); end;';
 
     sqlResult =
       'SELECT ' +
@@ -1832,7 +1833,7 @@ export function user (req, res) {
       '  sessionid_temp ' +
       'WHERE ' +
       '  sessionid = decrypt_cookie(:sessionid) ' +
-      '  AND kod = \'WEB_UDAJE_ESHOP_UZIVATELE_JSON\'';
+      '  AND kod = \'E1_WEB_UDAJE_ESHOP_UZIV_JSON\'';
 
     vals = {
       strings: {
@@ -1855,9 +1856,14 @@ export function user (req, res) {
       }
     ).then(
       function (result) {
-        let data: any = Tools.getSingleResult(result);
-        let obj = data.result ? JSON.parse(data.result) : {};
-        res.json(obj);
+        try {
+          let data: any = Tools.getSingleResult(result);
+          let obj = (data.result ? JSON.parse(data.result) : {});
+          res.json(obj);
+        } catch (e) {
+          console.log(e);
+          res.json({});
+        }
       },
       function (result) {
         console.log(result);
@@ -1867,5 +1873,153 @@ export function user (req, res) {
   } catch (e) {
     console.log(e);
     res.json({});
+  }
+}
+
+export function productBuy (req, res) {
+  let sql, vals, sessionid, sqlProps, loginName;
+
+  loginName = Tools.getCookieId(req, Constants.AUTH_TOKEN_CODE);
+
+  sessionid = Tools.getSessionId(req);
+  if (!sessionid) {
+    res.json({});
+    return;
+  }
+
+  if (!req.params.id) {
+    res.json({});
+    return;
+  }
+  try {
+
+    sql =
+      'begin web_vlozit_do_kosiku_json(:strings); end;';
+
+    sqlProps =
+      'SELECT ' +
+      '  s1 as "result" ' +
+      'FROM ' +
+      '  sessionid_temp ' +
+      'WHERE ' +
+      '  sessionid = decrypt_cookie(:sessionid) ' +
+      '  AND kod = \'WEB_VLOZIT_DO_KOSIKU_JSON\'';
+
+    vals = {
+      strings: {
+        type: oracle.STRING,
+        dir: oracle.BIND_IN,
+        val: [
+          'asessionid:' + sessionid,
+          'aLoginName:' + loginName,
+          'aSaveContent:1',
+          'aExtCookies:1',
+          'aid:' + req.params.id,
+          'amnozstvi:' + req.body.amount,
+        ]
+      }
+    };
+
+    Oracledb.executeSQL(sql, vals, req, null, {commit: true}).then(
+      function (result) {
+        vals = {sessionid: sessionid};
+        return Oracledb.select(sqlProps, vals, req, null, null);
+      }
+    ).then(
+      function (result) {
+        let data: any = Tools.getSingleResult(result);
+        let obj = (data.result ? JSON.parse(data.result) : {});
+        res.json(obj);
+      },
+      function (result) {
+        console.log(result);
+        res.send('');
+      }
+    );
+  } catch (e) {
+    console.log(e);
+    res.send('');
+  }
+}
+
+export function cart (req, res) {
+  let sql, vals, sessionid, sqlProps, loginName;
+
+  loginName = Tools.getCookieId(req, Constants.AUTH_TOKEN_CODE);
+
+  sessionid = Tools.getSessionId(req);
+  if (!sessionid) {
+    res.json({});
+    return;
+  }
+
+  try {
+
+    sql =
+      'begin e1_web_udaje_eshop_kosik_json(:strings); end;';
+
+    sqlProps =
+      'SELECT ' +
+      '  s1 as "result" ' +
+      'FROM ' +
+      '  sessionid_temp ' +
+      'WHERE ' +
+      '  sessionid = decrypt_cookie(:sessionid) ' +
+      '  AND kod = \'E1_WEB_UDAJE_ESHOP_KOSIK_JSON\'';
+
+    vals = {
+      strings: {
+        type: oracle.STRING,
+        dir: oracle.BIND_IN,
+        val: [
+          'asessionid:' + sessionid,
+          'aLoginName:' + loginName,
+          'aSaveContent:1',
+          'aExtCookies:1',
+        ]
+      }
+    };
+
+    Oracledb.executeSQL(sql, vals, req, null, {commit: true}).then(
+      function (result) {
+        vals = {sessionid: sessionid};
+        return Oracledb.select(sqlProps, vals, req, null, null);
+      }
+    ).then(
+      function (result) {
+        try {
+          let data: any = Tools.getSingleResult(result);
+          let dataParse: any = (data.result ? JSON.parse(data.result) : {records: []});
+          let obj: any = {records: []};
+          dataParse.records.map(function (el) {
+            obj.records.push({
+              fileName: (el.id_prilohy ? el.id_prilohy + el.file_ext : Constants.imgageEmptySmall),
+              name: decodeURIComponent(el.nazev),
+              code: decodeURIComponent(el.kod),
+              unit: decodeURIComponent(el.mj),
+              amount: decodeURIComponent(el.mnozstvi),
+              redirect: el.presmerovani,
+              price: decodeURIComponent(el.cena_val),
+              priceVat: decodeURIComponent(el.cena_sdph),
+              priceAmount: decodeURIComponent(el.castka_val),
+              priceVatAmount: decodeURIComponent(el.castka_sdph),
+              availability: el.dostupnost,
+              discountPercent: decodeURIComponent(el.sleva_proc)
+            });
+          });
+          res.json(obj);
+        } catch (e) {
+          console.log(e);
+          res.json({});
+        }
+      },
+      function (result) {
+        console.log(result);
+        res.send('');
+      }
+    );
+  } catch (e) {
+    console.log(e);
+    res.send('');
   }
 }

@@ -65,6 +65,9 @@ import {HtmlOutlet} from "./app/html-outlet/html-outlet.component";
 import {ScrollBarWidth} from "./app/scrollbar-width/scrollbar-width";
 import {AppWidth} from "./app/app-width/app-width.component";
 import {MenuSetActive} from "./app/menu-set-active/menu-set-active.component";
+import {Cart} from "./app/cart/cart.component";
+import {CartPage} from "./app/cart-page/cart-page.component";
+import {OrderHeader} from "./app/order-header/order-header.component";
 
 @NgModule({
   bootstrap: [ App ],
@@ -127,7 +130,10 @@ import {MenuSetActive} from "./app/menu-set-active/menu-set-active.component";
     List4Obj,
     ScrollBarWidth,
     AppWidth,
-    MenuSetActive
+    MenuSetActive,
+    Cart,
+    CartPage,
+    OrderHeader
     //HtmlOutlet
   ],
   entryComponents: [
@@ -147,7 +153,8 @@ import {MenuSetActive} from "./app/menu-set-active/menu-set-active.component";
     ListObj,
     List3Obj,
     List4Obj,
-    SlidesComponent
+    SlidesComponent,
+    CartPage
   ],
   imports: [
     UniversalModule, // BrowserModule, HttpModule, and JsonpModule are included

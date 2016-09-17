@@ -33,7 +33,7 @@ export class Attachments {
     if (this.id && !isNaN(this.id) && this.type) {
       let self = this;
       this.loading = true;
-      this.http.get(this.appService.getRootPath() + '/product/' + this.id + '/attachments/type/' + this.type + '/table/' + this.tableName)
+      this.http.get(this.appService.getRootPath() + '/products/' + this.id + '/attachments/type/' + this.type + '/table/' + this.tableName)
         .subscribe(res => {
           let data = res.json() || [];
           data.map(function (el) {

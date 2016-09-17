@@ -14,7 +14,7 @@ export class LoginNewsletter {
 
   loginNews() {
     if (this.aEmail && Tools.validateEmail(this.aEmail)) {
-      this.http.get('/newsletter/login/' + this.aEmail)
+      this.http.post('/newsletter/login', {email: this.aEmail})
         .subscribe(res => {
           let data = res.json() || [];
           console.log(data);

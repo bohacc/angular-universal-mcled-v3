@@ -1,6 +1,13 @@
+export var PATHS = {
+  CART: '/kosik',
+  LOGIN: '/login',
+  HOMEPAGE: '/homepage',
+};
+export var EMPTY_LOGIN_NAME: 'nepřihlášen';
+export var PRODUCT_ADD_TO_CART_ERROR = 'Chyba při vkládání do košíku';
 export var SESSIONID_CODE = 'sessionid';
 export var AUTH_TOKEN_CODE = 'auth_token';
-export var ROOT_PATH = 'http://localhost:9002';
+export var ROOT_PATH = 'http://localhost:' + (parseInt(process.env.APP_PORT, 10) || 9002);
 export var commaParams = '@';
 export var actionId = 2664;
 export var newsId = 2663;

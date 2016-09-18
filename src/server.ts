@@ -82,6 +82,7 @@ app.get('/load-objects/redirect/:code', api.loadObjects);
 app.get('/redirect-navigations/page/:id', api.redirectNavigations);
 app.get('/redirect-navigations/product/:code', api.redirectNavigationsProduct);
 app.get('/products/:code', api.getProduct);
+app.post('/products/buy', api.productBuy);
 app.post('/products/:id/buy', api.productBuy);
 app.get('/products/list/:code', api.productsList);
 app.get('/products/list/:code/pagination', api.productsListPagination);

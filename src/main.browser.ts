@@ -1,13 +1,11 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
 
 import { UniversalModule } from 'angular2-universal';
 
 import { App } from './app/app';
 import { routing, appRoutingProviders } from './app/app.routing';
 import { Home } from './app/home/home.component';
-import { Section } from './app/section/section.component.ts';
 import { MyFilterArray } from './app/pipes/my-filter-array.pipe.ts';
 import { SectionObject } from './app/section-object/section-object.component';
 import { HtmlOutlet3 } from './app/html-outlet3/html-outlet3.component';
@@ -61,13 +59,22 @@ import {ShopCategoriesDev} from "./app/shop-categories-dev/shop-categories-dev.c
 import {ListObj} from "./app/list-obj/list-obj.component";
 import {List3Obj} from "./app/list3-obj/list3-obj.component";
 import {List4Obj} from "./app/list4-obj/list4-obj.component";
-import {HtmlOutlet} from "./app/html-outlet/html-outlet.component";
 import {ScrollBarWidth} from "./app/scrollbar-width/scrollbar-width";
 import {AppWidth} from "./app/app-width/app-width.component";
 import {MenuSetActive} from "./app/menu-set-active/menu-set-active.component";
 import {Cart} from "./app/cart/cart.component";
 import {CartPage} from "./app/cart-page/cart-page.component";
 import {OrderHeader} from "./app/order-header/order-header.component";
+import {Registration} from "./app/registration/registration.component";
+import {OrderStep1} from "./app/order-step1/order-step1.component";
+import {OrderStep2} from "./app/order-step2/order-step2.component";
+import {OrderStep3} from "./app/order-step3/order-step3.component";
+import {OrderStep4} from "./app/order-step4/order-step4.component";
+import {OrderPersonalData} from "./app/order-personal-data/order-personal-data.component";
+import {OrderShippingAndPayment} from "./app/order-shipping-and-payment/order-shipping-and-payment.component";
+import {OrderSummary} from "./app/order-summary/order-summary.component";
+import {OrderSuccess} from "./app/order-success/order-success.component";
+import {SectionSW} from "./app/section-sw/section-sw.component";
 
 @NgModule({
   bootstrap: [ App ],
@@ -75,7 +82,7 @@ import {OrderHeader} from "./app/order-header/order-header.component";
     App,
     Home,
     HomeStatic,
-    Section,
+    SectionSW,
     MyFilterArray,
     SectionObject,
     HtmlOutlet3,
@@ -133,8 +140,16 @@ import {OrderHeader} from "./app/order-header/order-header.component";
     MenuSetActive,
     Cart,
     CartPage,
-    OrderHeader
-    //HtmlOutlet
+    OrderHeader,
+    Registration,
+    OrderStep1,
+    OrderStep2,
+    OrderStep3,
+    OrderStep4,
+    OrderPersonalData,
+    OrderShippingAndPayment,
+    OrderSummary,
+    OrderSuccess
   ],
   entryComponents: [
     Test,
@@ -154,7 +169,12 @@ import {OrderHeader} from "./app/order-header/order-header.component";
     List3Obj,
     List4Obj,
     SlidesComponent,
-    CartPage
+    CartPage,
+    Registration,
+    OrderStep1,
+    OrderStep2,
+    OrderStep3,
+    OrderStep4
   ],
   imports: [
     UniversalModule, // BrowserModule, HttpModule, and JsonpModule are included

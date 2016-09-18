@@ -2,8 +2,13 @@ export var PATHS = {
   CART: '/kosik',
   LOGIN: '/login',
   HOMEPAGE: '/homepage',
+  ORDER_SHIPPING_AND_PAYMENT: '/doprava-a-platba',
+  ORDER_PERSONAL_DATA: '/osobni-udaje',
+  ORDER_SUMMARY: '/shrnuti-objednavky',
+  ORDER_SUCCESS: '/podekovani',
 };
-export var EMPTY_LOGIN_NAME: 'nepřihlášen';
+export var SLASH = '/';
+export var EMPTY_LOGIN_NAME = 'nepřihlášen';
 export var PRODUCT_ADD_TO_CART_ERROR = 'Chyba při vkládání do košíku';
 export var SESSIONID_CODE = 'sessionid';
 export var AUTH_TOKEN_CODE = 'auth_token';

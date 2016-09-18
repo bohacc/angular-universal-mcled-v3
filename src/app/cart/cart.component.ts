@@ -10,14 +10,24 @@ import {Http} from "@angular/http";
 
 export class Cart {
   appService: AppService;
-  cart: any;
+  cart: any = {};
   cartItems: Array<any>;
+  productCode: string;
+  amount: number = 1;
 
   constructor (private http: Http) {
     this.appService = AppService.getInstance();
   }
 
   ngOnInit() {
+    this.getData();
+  }
+
+  removeItem(item: any) {
+    //TODO: remove item from cart
+  }
+
+  getData() {
     this.http.get(this.appService.getRootPath() + '/cart')
       .subscribe(res => {
         this.cart = res.json();
@@ -25,7 +35,16 @@ export class Cart {
       });
   }
 
-  removeItem(item: any) {
-    //TODO: remove item from cart
+  buy() {
+    this.http.post('/products/buy/', {code: this.productCode, amount: this.amount})
+      .subscribe(
+        res => {
+          let data = res.json() || [];
+          this.getData();
+        },
+        err => {
+          //console.log(Constants.PRODUCT_ADD_TO_CART_ERROR);
+        }
+      );
   }
 }

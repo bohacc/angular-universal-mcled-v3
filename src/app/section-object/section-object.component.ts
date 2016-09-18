@@ -18,6 +18,11 @@ import {List3Obj} from "../list3-obj/list3-obj.component";
 import {List4Obj} from "../list4-obj/list4-obj.component";
 import {AppService} from "../app.service";
 import {CartPage} from "../cart-page/cart-page.component";
+import {Registration} from "../registration/registration.component";
+import {OrderStep1} from "../order-step1/order-step1.component";
+import {OrderStep2} from "../order-step2/order-step2.component";
+import {OrderStep3} from "../order-step3/order-step3.component";
+import {OrderStep4} from "../order-step4/order-step4.component";
 
 @Component({
   selector: 'section-object',
@@ -62,6 +67,11 @@ export class SectionObject {
       && this.objectID !== '6373'
       && this.objectID !== '6350'
       && this.objectID !== '6379'
+      && this.objectID !== '6384'
+      && this.objectID !== '6380'
+      && this.objectID !== '6381'
+      && this.objectID !== '6382'
+      && this.objectID !== '6383'
     ){
       this.http.get(this.appService.getRootPath() + '/templates/' + this.src).subscribe((res) => {
         this.html = res.text();
@@ -109,6 +119,21 @@ export class SectionObject {
     } else if (this.pos == 3 && (this.objectID === 'CART_PAGE_NG2' || this.objectID === '6379')) {
       this.isComponentType = 2;
       this.obj = CartPage;
+    } else if (this.pos == 3 && (this.objectID === 'REGISTRATION_NG2' || this.objectID === '6384')) {
+      this.isComponentType = 2;
+      this.obj = Registration;
+    } else if (this.pos == 3 && (this.objectID === 'ORDER_STEP1_NG2' || this.objectID === '6380')) {
+      this.isComponentType = 2;
+      this.obj = OrderStep1;
+    } else if (this.pos == 3 && (this.objectID === 'ORDER_STEP2_NG2' || this.objectID === '6381')) {
+      this.isComponentType = 2;
+      this.obj = OrderStep2;
+    } else if (this.pos == 3 && (this.objectID === 'ORDER_STEP3_NG2' || this.objectID === '6382')) {
+      this.isComponentType = 2;
+      this.obj = OrderStep3;
+    } else if (this.pos == 3 && (this.objectID === 'ORDER_STEP4_NG2' || this.objectID === '6383')) {
+      this.isComponentType = 2;
+      this.obj = OrderStep4;
     }
   }
 }

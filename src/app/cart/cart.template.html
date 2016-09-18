@@ -115,7 +115,7 @@
                   </div>
                   <div class="col-xs-12 col-sm-12 col-lg-auto">
                     <div class="input">
-                      <input type="text" name="product_code">
+                      <input type="text" name="product_code" [(ngModel)]="productCode" />
                     </div>
                   </div>
                 </div>
@@ -129,7 +129,7 @@
                   </div>
                   <div class="col-xs-12 col-sm-12 col-lg-auto">
                     <div class="ui_input_number">
-                      <input type="text" value="0" />
+                      <input type="text" value="1" [(ngModel)]="amount" name="amount" />
                       <button type="button" class="minus">-</button>
                       <button type="button" class="plus">+</button>
                     </div>
@@ -187,11 +187,11 @@
   <div class="basket_prices_box">
     <div class="price secondary">
       Cena celkem bez DPH
-      <span>484 Kč</span>
+      <span>{{cart.priceAmount}} Kč</span>
     </div>
     <div class="price primary">
       Cena celkem s DPH
-      <span>561 Kč</span>
+      <span>{{cart.priceAmountVat}}</span>
     </div>
     <div class="free_delivery">
       Do dopravy <strong>ZDARMA</strong> zbývá <span>1464 Kč</span>

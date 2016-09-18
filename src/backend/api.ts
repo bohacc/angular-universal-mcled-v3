@@ -1887,7 +1887,7 @@ export function productBuy (req, res) {
     return;
   }
 
-  if (!req.params.id) {
+  if (!req.params.id || !req.body.code) {
     res.json({});
     return;
   }
@@ -1915,7 +1915,8 @@ export function productBuy (req, res) {
           'aSaveContent:1',
           'aExtCookies:1',
           'aid:' + req.params.id,
-          'amnozstvi:' + req.body.amount,
+          'akod:' + req.body.code,
+          'amnozstvi:' + (req.body.amount || 1),
         ]
       }
     };
@@ -1991,6 +1992,8 @@ export function cart (req, res) {
           let data: any = Tools.getSingleResult(result);
           let dataParse: any = (data.result ? JSON.parse(data.result) : {records: []});
           let obj: any = {records: []};
+          obj.priceAmount = decodeURIComponent(dataParse.castka_val);
+          obj.priceAmountVat = decodeURIComponent(dataParse.castka_sdph);
           dataParse.records.map(function (el) {
             obj.records.push({
               fileName: (el.id_prilohy ? el.id_prilohy + el.file_ext : Constants.imgageEmptySmall),

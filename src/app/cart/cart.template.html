@@ -14,7 +14,7 @@
     </thead>
     <tbody>
     <!-- //// -->
-    <tr *ngFor="let item of cartItems">
+    <tr *ngFor="let item of cartObj.records">
       <td class="image">
         <img src="/files/{{item.fileName}}" alt="{{item.name}}">
       </td>
@@ -24,11 +24,11 @@
         </h2>
       </td>
       <td data-title="Počet:">
-        <form action="" method="post">
+        <form action="" method="post" name="products">
           <div class="ui_input_number">
-            <input type="text" name="amount" value="{{item.amount}}" />
-            <button type="button" class="minus">-</button>
-            <button type="button" class="plus">+</button>
+            <input type="text" name="amount" [(ngModel)]="item.amount" />
+            <button type="button" class="minus" (click)="decAmount(item)">-</button>
+            <button type="button" class="plus" (click)="incAmount(item)">+</button>
           </div>
         </form>
       </td>
@@ -63,7 +63,7 @@
       <input type="checkbox" id="add_product" name="addProduct">
       <label for="add_product">Přidat zboží</label>
       <div class="content">
-        <form action="" method="post" class="lui_form">
+        <form action="" method="post" class="lui_form" name="product">
           <div class="container fluid nospace">
             <div class="row">
               <div class="col-xs-12 col-sm-12 col-lg-auto">
@@ -75,7 +75,7 @@
                   </div>
                   <div class="col-xs-12 col-sm-12 col-lg-auto">
                     <div class="input">
-                      <input type="text" name="product_code" [(ngModel)]="productCode" />
+                      <input type="text" name="product_code" [(ngModel)]="otherProduct['code']" />
                     </div>
                   </div>
                 </div>
@@ -89,9 +89,9 @@
                   </div>
                   <div class="col-xs-12 col-sm-12 col-lg-auto">
                     <div class="ui_input_number">
-                      <input type="text" value="1" [(ngModel)]="amountOther" name="amountOther" />
-                      <button type="button" class="minus">-</button>
-                      <button type="button" class="plus">+</button>
+                      <input type="text" [(ngModel)]="otherProduct['name']" name="product_amount" />
+                      <button type="button" class="minus" (click)="decAmount(otherProduct)">-</button>
+                      <button type="button" class="plus" (click)="incAmount(otherProduct)">+</button>
                     </div>
                   </div>
 
@@ -114,7 +114,7 @@
       <input type="checkbox" id="add_voucher" name="addVoucher">
       <label for="add_voucher">Mám slevový poukaz</label>
       <div class="content">
-        <form action="" method="post" class="lui_form">
+        <form action="" method="post" class="lui_form" name="voucher">
           <div class="container fluid nospace">
             <div class="row va-center item">
               <div class="col-xs-12 col-lg-auto">

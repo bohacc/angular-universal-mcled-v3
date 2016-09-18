@@ -11,10 +11,9 @@ import {Http} from "@angular/http";
 export class Cart {
   appService: AppService;
   cartObj: any = {};
-  cartItems: Array<any>;
-  productCode: string;
   amount: number = 1;
-  amountOther: number;
+  otherProduct: any = {code: null, amount: 1};
+  test: any;
 
   constructor (private http: Http) {
     this.appService = AppService.getInstance();
@@ -32,12 +31,11 @@ export class Cart {
     this.http.get(this.appService.getRootPath() + '/cart')
       .subscribe(res => {
         this.cartObj = res.json();
-        this.cartItems = this.cartObj.records;
       });
   }
 
   buy() {
-    this.http.post('/products/buy/', {code: this.productCode, amount: this.amountOther})
+    this.http.post('/products/buy/', this.otherProduct)
       .subscribe(
         res => {
           let data = res.json() || [];
@@ -47,5 +45,13 @@ export class Cart {
           //console.log(Constants.PRODUCT_ADD_TO_CART_ERROR);
         }
       );
+  }
+
+  incAmount(obj: any) {
+    obj.amount += 1;
+  }
+
+  decAmount(obj: any) {
+    obj.amount -= 1;
   }
 }

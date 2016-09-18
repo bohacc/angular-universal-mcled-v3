@@ -73,7 +73,7 @@ app.get('/xml-export-heureka', api.xmlExportHeureka);
 app.get('/sitemap', api.sitemap);
 app.get('/partners', api.partnersList);
 app.get('/user', api.user);
-//app.get('/cart', api.cart);
+app.get('/cart', api.cart);
 
 app.get('/:code', ngApp);
 app.get('/', ngApp);
@@ -81,13 +81,17 @@ app.get('/', ngApp);
 app.get('/load-objects/redirect/:code', api.loadObjects);
 app.get('/redirect-navigations/page/:id', api.redirectNavigations);
 app.get('/redirect-navigations/product/:code', api.redirectNavigationsProduct);
+
 app.get('/products/:code', api.getProduct);
 app.post('/products/buy', api.productBuy);
 app.post('/products/:id/buy', api.productBuy);
+app.put('/products', api.productPut);
+app.delete('/products/item/:itemId', api.productDelete);
 app.get('/products/list/:code', api.productsList);
 app.get('/products/list/:code/pagination', api.productsListPagination);
 app.get('/products/:id/attachments/type/:type/table/:tableName', api.attachments);
 app.get('/products/:id/similar', api.productsSimilar);
+
 app.get('/filter/:code/type/:type', api.getFilterForList);
 app.get('/filter/type/:code', api.getFilterType);
 app.get('/cats/:code', api.category);

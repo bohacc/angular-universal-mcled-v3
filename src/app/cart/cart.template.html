@@ -26,7 +26,7 @@
       <td data-title="Počet:">
         <form action="" method="post" name="products">
           <div class="ui_input_number">
-            <input type="text" name="amount" [(ngModel)]="item.amount" />
+            <input type="text" name="amount" [(ngModel)]="item.amount" (ngModelChange)="updateItem(item)" />
             <button type="button" class="minus" (click)="decAmount(item)">-</button>
             <button type="button" class="plus" (click)="incAmount(item)">+</button>
           </div>
@@ -63,7 +63,7 @@
       <input type="checkbox" id="add_product" name="addProduct">
       <label for="add_product">Přidat zboží</label>
       <div class="content">
-        <form action="" method="post" class="lui_form" name="product">
+        <form action="" method="post" class="lui_form" name="product" (ngSubmit)="buy()">
           <div class="container fluid nospace">
             <div class="row">
               <div class="col-xs-12 col-sm-12 col-lg-auto">
@@ -89,7 +89,7 @@
                   </div>
                   <div class="col-xs-12 col-sm-12 col-lg-auto">
                     <div class="ui_input_number">
-                      <input type="text" [(ngModel)]="otherProduct['name']" name="product_amount" />
+                      <input type="text" [(ngModel)]="otherProduct['amount']" name="product_amount" />
                       <button type="button" class="minus" (click)="decAmount(otherProduct)">-</button>
                       <button type="button" class="plus" (click)="incAmount(otherProduct)">+</button>
                     </div>

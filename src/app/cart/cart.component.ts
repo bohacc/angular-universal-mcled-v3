@@ -14,17 +14,49 @@ export class Cart {
   amount: number = 1;
   otherProduct: any = {code: null, amount: 1};
   test: any;
+  httpTimeoutU: any;
+  httpTimeoutR: any;
+  httpSubscriptionU: any;
+  httpSubscriptionR: any;
 
   constructor (private http: Http) {
     this.appService = AppService.getInstance();
   }
 
   ngOnInit() {
-    //this.getData();
+    this.getData();
   }
 
   removeItem(item: any) {
-    //TODO: remove item from cart
+    let _this = this;
+    if (this.httpTimeoutR) {
+      clearTimeout(this.httpTimeoutR);
+    }
+    this.httpTimeoutR = setTimeout(function () {
+      if (_this.httpSubscriptionR) {
+        _this.httpSubscriptionR.unsubscribe();
+      }
+      _this.httpSubscriptionR = _this.http.delete(_this.appService.getRootPath() + '/products/item/' + item.itemId)
+        .subscribe(res => {
+          _this.getData();
+        });
+    }, 200);
+  }
+
+  updateItem(item: any) {
+    let _this = this;
+    if (this.httpTimeoutU) {
+      clearTimeout(this.httpTimeoutU);
+    }
+    this.httpTimeoutU = setTimeout(function () {
+      if (_this.httpSubscriptionU) {
+        _this.httpSubscriptionU.unsubscribe();
+      }
+      _this.httpSubscriptionU = _this.http.put(_this.appService.getRootPath() + '/products', item)
+        .subscribe(res => {
+          _this.getData();
+        });
+    }, 200);
   }
 
   getData() {
@@ -35,6 +67,9 @@ export class Cart {
   }
 
   buy() {
+    if (!this.otherProduct.code || !this.otherProduct.amount) {
+      return;
+    }
     this.http.post('/products/buy/', this.otherProduct)
       .subscribe(
         res => {
@@ -48,10 +83,15 @@ export class Cart {
   }
 
   incAmount(obj: any) {
-    obj.amount += 1;
+    obj.amount = parseInt(obj.amount) + 1;
+    this.updateItem(obj);
   }
 
   decAmount(obj: any) {
-    obj.amount -= 1;
+    if (obj.amount == 1) {
+      return;
+    }
+    obj.amount = parseInt(obj.amount) - 1;
+    this.updateItem(obj);
   }
 }

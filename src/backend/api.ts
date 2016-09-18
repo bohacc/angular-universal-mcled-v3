@@ -1887,14 +1887,14 @@ export function productBuy (req, res) {
     return;
   }
 
-  if (!req.params.id || !req.body.code) {
+  if (!(req.params.id || req.body.code)) {
     res.json({});
     return;
   }
   try {
 
     sql =
-      'begin web_vlozit_do_kosiku_json(:strings); end;';
+      'begin e1_web_vlozit_do_kosiku_json(:strings); end;';
 
     sqlProps =
       'SELECT ' +
@@ -1903,7 +1903,7 @@ export function productBuy (req, res) {
       '  sessionid_temp ' +
       'WHERE ' +
       '  sessionid = decrypt_cookie(:sessionid) ' +
-      '  AND kod = \'WEB_VLOZIT_DO_KOSIKU_JSON\'';
+      '  AND kod = \'E1_WEB_VLOZIT_DO_KOSIKU_JSON\'';
 
     vals = {
       strings: {
@@ -1911,7 +1911,7 @@ export function productBuy (req, res) {
         dir: oracle.BIND_IN,
         val: [
           'asessionid:' + sessionid,
-          'aLoginName:' + loginName,
+          'aLoginName:' + (loginName || ''),
           'aSaveContent:1',
           'aExtCookies:1',
           'aid:' + req.params.id,
@@ -2007,10 +2007,155 @@ export function cart (req, res) {
               priceAmount: decodeURIComponent(el.castka_val),
               priceVatAmount: decodeURIComponent(el.castka_sdph),
               availability: el.dostupnost,
-              discountPercent: decodeURIComponent(el.sleva_proc)
+              discountPercent: decodeURIComponent(el.sleva_proc),
+              itemId: el.cislo
             });
           });
           res.json(obj);
+        } catch (e) {
+          console.log(e);
+          res.json({});
+        }
+      },
+      function (result) {
+        console.log(result);
+        res.send('');
+      }
+    );
+  } catch (e) {
+    console.log(e);
+    res.send('');
+  }
+}
+
+export function productDelete (req, res) {
+  let sql, vals, sessionid, sqlProps, loginName, itemId;
+
+  loginName = Tools.getCookieId(req, Constants.AUTH_TOKEN_CODE);
+  itemId = req.params.itemId;
+
+  sessionid = Tools.getSessionId(req);
+  if (!sessionid) {
+    res.json({});
+    return;
+  }
+
+  if (!req.params.itemId) {
+    res.json({});
+    return;
+  }
+
+  try {
+
+    sql =
+      'begin web_odstr_z_kos_dle_cisla_json(:strings); end;';
+
+    sqlProps =
+      'SELECT ' +
+      '  s1 as "result" ' +
+      'FROM ' +
+      '  sessionid_temp ' +
+      'WHERE ' +
+      '  sessionid = decrypt_cookie(:sessionid) ' +
+      '  AND kod = \'WEB_ODSTR_Z_KOS_DLE_CISLA_JSON\'';
+
+    vals = {
+      strings: {
+        type: oracle.STRING,
+        dir: oracle.BIND_IN,
+        val: [
+          'asessionid:' + sessionid,
+          'aLoginName:' + loginName,
+          'acislo:' + itemId,
+          'aSaveContent:1',
+          'aExtCookies:1',
+        ]
+      }
+    };
+
+    Oracledb.executeSQL(sql, vals, req, null, {commit: true}).then(
+      function (result) {
+        vals = {sessionid: sessionid};
+        return Oracledb.select(sqlProps, vals, req, null, null);
+      }
+    ).then(
+      function (result) {
+        try {
+          let data: any = Tools.getSingleResult(result);
+          res.json(data);
+        } catch (e) {
+          console.log(e);
+          res.json({});
+        }
+      },
+      function (result) {
+        console.log(result);
+        res.send('');
+      }
+    );
+  } catch (e) {
+    console.log(e);
+    res.send('');
+  }
+}
+
+export function productPut (req, res) {
+  let sql, vals, sessionid, sqlProps, loginName, itemId, amount;
+
+  loginName = Tools.getCookieId(req, Constants.AUTH_TOKEN_CODE);
+  itemId = req.body.itemId;
+  amount = req.body.amount;
+
+  sessionid = Tools.getSessionId(req);
+  if (!sessionid) {
+    res.json({});
+    return;
+  }
+
+  if (!req.body.itemId || !req.body.amount) {
+    res.json({});
+    return;
+  }
+
+  try {
+
+    sql =
+      'begin e1_zmen_mnoz_kos_dle_cis_json(:strings); end;';
+
+    sqlProps =
+      'SELECT ' +
+      '  s1 as "result" ' +
+      'FROM ' +
+      '  sessionid_temp ' +
+      'WHERE ' +
+      '  sessionid = decrypt_cookie(:sessionid) ' +
+      '  AND kod = \'E1_ZMEN_MNOZ_KOS_DLE_CIS_JSON\'';
+
+    vals = {
+      strings: {
+        type: oracle.STRING,
+        dir: oracle.BIND_IN,
+        val: [
+          'asessionid:' + sessionid,
+          'aLoginName:' + loginName,
+          'acislo:' + itemId,
+          'amnozstvi:' + amount,
+          'aSaveContent:1',
+          'aExtCookies:1',
+        ]
+      }
+    };
+
+    Oracledb.executeSQL(sql, vals, req, null, {commit: true}).then(
+      function (result) {
+        vals = {sessionid: sessionid};
+        return Oracledb.select(sqlProps, vals, req, null, null);
+      }
+    ).then(
+      function (result) {
+        try {
+          let data: any = Tools.getSingleResult(result);
+          res.json(data);
         } catch (e) {
           console.log(e);
           res.json({});

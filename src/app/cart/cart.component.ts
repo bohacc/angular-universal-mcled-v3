@@ -14,6 +14,7 @@ export class Cart {
   cartItems: Array<any>;
   productCode: string;
   amount: number = 1;
+  amountOther: number;
 
   constructor (private http: Http) {
     this.appService = AppService.getInstance();
@@ -36,7 +37,7 @@ export class Cart {
   }
 
   buy() {
-    this.http.post('/products/buy/', {code: this.productCode, amount: this.amount})
+    this.http.post('/products/buy/', {code: this.productCode, amount: this.amountOther})
       .subscribe(
         res => {
           let data = res.json() || [];

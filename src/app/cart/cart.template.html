@@ -54,53 +54,13 @@
       </td>
     </tr>
     <!-- //// -->
-    <!--<tr>
-      <td class="image">
-        <img src="/images/example/126.688.60.0_4_S.jpg" alt="">
-      </td>
-      <td>
-        <h2>
-          <a [routerLink]="['/']">LED žárovka 10W, E27, 2700K, CRI 80, vyzař. úhel 270, sv. tok 840lm</a>
-        </h2>
-      </td>
-      <td data-title="Počet:">
-        <form action="" method="post">
-          <div class="ui_input_number">
-            <input type="text" name="2" value="1" />
-            <button type="button" class="minus">-</button>
-            <button type="button" class="plus">+</button>
-          </div>
-        </form>
-      </td>
-      <td data-title="Dostupnost:">
-        <div class="store positive">
-          Skladem
-        </div>
-      </td>
-      <td data-title="Cena za kus:">
-        163 Kč
-      </td>
-      <td data-title="Sleva:">
-        30%
-      </td>
-      <td data-title="Cena za kus vč. slevy:">
-        121 Kč
-      </td>
-      <td data-title="Cena celkem bez DPH vč. slevy:">
-        <strong>242 Kč</strong>
-      </td>
-      <td>
-        <a [routerLink]="['/']" class="remove fa_b_times" title="Odstranit z košíku"></a>
-      </td>
-    </tr>-->
-    <!-- //// -->
     </tbody>
   </table>
   <!-- ///// -->
   <div class="basket_order_extras">
     <!-- ///// -->
     <div class="item">
-      <input type="checkbox" id="add_product">
+      <input type="checkbox" id="add_product" name="addProduct">
       <label for="add_product">Přidat zboží</label>
       <div class="content">
         <form action="" method="post" class="lui_form">
@@ -129,7 +89,7 @@
                   </div>
                   <div class="col-xs-12 col-sm-12 col-lg-auto">
                     <div class="ui_input_number">
-                      <input type="text" value="1" [(ngModel)]="amount" name="amount" />
+                      <input type="text" value="1" [(ngModel)]="amountOther" name="amountOther" />
                       <button type="button" class="minus">-</button>
                       <button type="button" class="plus">+</button>
                     </div>
@@ -151,7 +111,7 @@
     </div>
     <!-- ///// -->
     <div class="item">
-      <input type="checkbox" id="add_voucher">
+      <input type="checkbox" id="add_voucher" name="addVoucher">
       <label for="add_voucher">Mám slevový poukaz</label>
       <div class="content">
         <form action="" method="post" class="lui_form">

@@ -10,7 +10,7 @@ import {Http} from "@angular/http";
 
 export class Cart {
   appService: AppService;
-  cart: any = {};
+  cartObj: any = {};
   cartItems: Array<any>;
   productCode: string;
   amount: number = 1;
@@ -20,7 +20,7 @@ export class Cart {
   }
 
   ngOnInit() {
-    this.getData();
+    //this.getData();
   }
 
   removeItem(item: any) {
@@ -30,8 +30,8 @@ export class Cart {
   getData() {
     this.http.get(this.appService.getRootPath() + '/cart')
       .subscribe(res => {
-        this.cart = res.json();
-        this.cartItems = this.cart.records;
+        this.cartObj = res.json();
+        this.cartItems = this.cartObj.records;
       });
   }
 

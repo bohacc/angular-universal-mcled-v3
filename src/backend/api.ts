@@ -1990,7 +1990,6 @@ export function cart (req, res) {
       function (result) {
         try {
           let data: any = Tools.getSingleResult(result);
-          console.log(data.result);
           let dataParse: any = (data.result ? JSON.parse(data.result) : {records: []});
           let obj: any = {records: []};
           obj.priceAmount = decodeURIComponent(dataParse.castka_val);

@@ -73,7 +73,7 @@ app.get('/xml-export-heureka', api.xmlExportHeureka);
 app.get('/sitemap', api.sitemap);
 app.get('/partners', api.partnersList);
 app.get('/user', api.user);
-app.get('/cart', api.cart);
+//app.get('/cart', api.cart);
 
 app.get('/:code', ngApp);
 app.get('/', ngApp);

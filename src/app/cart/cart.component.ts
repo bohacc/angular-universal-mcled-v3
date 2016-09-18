@@ -70,7 +70,7 @@ export class Cart {
     if (!this.otherProduct.code || !this.otherProduct.amount) {
       return;
     }
-    this.http.post('/products/buy/', this.otherProduct)
+    this.http.post('/products/buy', this.otherProduct)
       .subscribe(
         res => {
           let data = res.json() || [];

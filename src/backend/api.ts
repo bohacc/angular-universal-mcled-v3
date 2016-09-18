@@ -1914,8 +1914,8 @@ export function productBuy (req, res) {
           'aLoginName:' + (loginName || ''),
           'aSaveContent:1',
           'aExtCookies:1',
-          'aid:' + req.params.id,
-          'akod:' + req.body.code,
+          'aid:' + (req.params.id || ''),
+          'akod:' + (req.body.code || ''),
           'amnozstvi:' + (req.body.amount || 1),
         ]
       }
